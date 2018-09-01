@@ -1,4 +1,4 @@
-package jira
+package jira.model
 
 case class VersionBean
 (

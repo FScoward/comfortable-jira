@@ -1,11 +1,8 @@
-package jira
+package jira.model
 
-import org.scalatest.{EitherValues, FunSpec, Matchers}
-import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
-import io.circe.syntax._
-
+import org.scalatest.{EitherValues, FunSpec, Matchers}
 
 class VersionBeanSpec extends FunSpec with Matchers with EitherValues {
   describe("parse version beans") {
