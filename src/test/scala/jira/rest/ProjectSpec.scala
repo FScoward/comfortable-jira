@@ -15,8 +15,16 @@ class ProjectSpec extends AsyncFunSpec {
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
 
+  describe("get project") {
+    ignore("return status code 200 OK") {
+      val project = new Project()
+      project.getAllProjects(domain, user, apiToken).map(response => {
+        assert(response.status == StatusCodes.OK)
+      })
+    }
+  }
   describe("get project versions") {
-    it("return status code 200 OK") {
+    ignore("return status code 200 OK") {
       val getProjectVersions = new Project()
       getProjectVersions.getProjectVersions(domain, projectId, user, apiToken).map(response => assert(response.status == StatusCodes.OK))
     }
