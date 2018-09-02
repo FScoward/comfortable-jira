@@ -5,6 +5,6 @@ case class SearchResultsBean(expand: String,
                              maxResults: Double,
                              total: Double,
                              issues: List[Issue],
-                             warningMessages: List[String],
+                             warningMessages: Option[List[String]],
                              names: Option[RenderedFields],
                              schema: Option[RenderedFields])

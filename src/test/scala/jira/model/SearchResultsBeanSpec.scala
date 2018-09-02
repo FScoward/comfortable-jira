@@ -117,7 +117,7 @@ class SearchResultsBeanSpec extends FunSpec with Matchers with EitherValues {
               ))
           )
         ),
-        warningMessages = List("<string>"),
+        warningMessages = Some(List("<string>")),
         names = Some(RenderedFields()),
         schema = Some(RenderedFields())
       )
@@ -171,7 +171,7 @@ class SearchResultsBeanSpec extends FunSpec with Matchers with EitherValues {
             editMeta = None
           )),
         warningMessages =
-          List("The value 'splat' does not exist for the field 'Foo'."),
+          Some(List("The value 'splat' does not exist for the field 'Foo'.")),
         names = None,
         schema = None
       )
