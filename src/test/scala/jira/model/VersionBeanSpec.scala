@@ -29,12 +29,13 @@ class VersionBeanSpec extends FunSpec with Matchers with EitherValues {
         released = false,
         overdue = false,
         projectId = 10000,
-        issuesStatusForFixVersion = Some(IssueStatusForFixVersion(
-          unmapped = 0,
-          toDo = 10,
-          inProgress = 20,
-          done = 100
-        ))
+        issuesStatusForFixVersion = Some(
+          IssueStatusForFixVersion(
+            unmapped = 0,
+            toDo = 10,
+            inProgress = 20,
+            done = 100
+          ))
       )
 
       val responseJson =
@@ -94,26 +95,31 @@ class VersionBeanSpec extends FunSpec with Matchers with EitherValues {
         project = Some("<string>"),
         projectId = 130,
         moveUnfixedIssuesTo = Some("<string>"),
-        operations = Some(List(Operations(
-          id = "<string>",
-          styleClass = "<string>",
-          iconClass = "<string>",
-          label = "<string>",
-          title = "<string>",
-          href = "<string>",
-          weight = 2154
-        ))),
-        remotelinks = Some(List(RemoteLinks(
-          self = "<string>",
-          name = "<string>",
-          link = "{}"
-        ))),
-        issuesStatusForFixVersion = Some(IssueStatusForFixVersion(
-          unmapped = 2154,
-          toDo = 2154,
-          inProgress = 2154,
-          done = 2154
-        ))
+        operations = Some(
+          List(
+            Operations(
+              id = "<string>",
+              styleClass = "<string>",
+              iconClass = "<string>",
+              label = "<string>",
+              title = "<string>",
+              href = "<string>",
+              weight = 2154
+            ))),
+        remotelinks = Some(
+          List(
+            RemoteLinks(
+              self = "<string>",
+              name = "<string>",
+              link = "{}"
+            ))),
+        issuesStatusForFixVersion = Some(
+          IssueStatusForFixVersion(
+            unmapped = 2154,
+            toDo = 2154,
+            inProgress = 2154,
+            done = 2154
+          ))
       )
 
       val responseJson =
@@ -166,7 +172,3 @@ class VersionBeanSpec extends FunSpec with Matchers with EitherValues {
     }
   }
 }
-
-
-
-
