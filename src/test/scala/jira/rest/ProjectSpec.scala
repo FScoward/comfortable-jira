@@ -25,8 +25,8 @@ class ProjectSpec extends AsyncFunSpec {
   }
   describe("get project versions") {
     ignore("return status code 200 OK") {
-      val getProjectVersions = new Project()
-      getProjectVersions.getProjectVersions(domain, projectId, user, apiToken).map(response => assert(response.status == StatusCodes.OK))
+      val project = new Project()
+      project.getProjectVersions(domain, projectId, user, apiToken).map(response => assert(response.status == StatusCodes.OK))
     }
   }
 }
