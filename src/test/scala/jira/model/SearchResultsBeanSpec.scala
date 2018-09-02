@@ -82,8 +82,8 @@ class SearchResultsBeanSpec extends FunSpec with Matchers with EitherValues {
             properties = Some(RenderedFields()),
             names = Some(RenderedFields()),
             schema = Some(RenderedFields()),
-            transitions = List(
-              Transition(
+            transitions = Some(
+              List(Transition(
                 id = "<string>",
                 name = "<string>",
                 to = Some(RenderedFields()),
@@ -93,25 +93,28 @@ class SearchResultsBeanSpec extends FunSpec with Matchers with EitherValues {
                 isConditional = true,
                 fields = Some(RenderedFields()),
                 expand = "<string>"
-              )
-            ),
-            operations = Operation(
-              linkGroups = List(Some(RenderedFields()))
-            ),
-            editmeta = Editmeta(
-              fields = Some(RenderedFields())
-            ),
-            changelog = Changelog(
-              startAt = 2154,
-              maxResults = 2154,
-              total = 2154,
-              histories = List(Some(RenderedFields()))
-            ),
+              ))),
+            operations = Some(
+              Operation(
+                linkGroups = List(Some(RenderedFields()))
+              )),
+            editmeta = Some(
+              Editmeta(
+                fields = Some(RenderedFields())
+              )),
+            changelog = Some(
+              Changelog(
+                startAt = 2154,
+                maxResults = 2154,
+                total = 2154,
+                histories = List(Some(RenderedFields()))
+              )),
             versionedRepresentations = Some(RenderedFields()),
             fields = Some(RenderedFields()),
-            editMeta = Editmeta(
-              fields = Some(RenderedFields())
-            )
+            editMeta = Some(
+              Editmeta(
+                fields = Some(RenderedFields())
+              ))
           )
         ),
         warningMessages = List("<string>"),
@@ -119,6 +122,59 @@ class SearchResultsBeanSpec extends FunSpec with Matchers with EitherValues {
         schema = Some(RenderedFields())
       )
 
+      val actual = decode[SearchResultsBean](responseJson)
+      assert(actual.right.value == expect)
+    }
+
+    it("example") {
+      val responseJson =
+        """
+          |{
+          |  "expand": "names,schema",
+          |  "startAt": 0,
+          |  "maxResults": 50,
+          |  "total": 1,
+          |  "issues": [
+          |    {
+          |      "expand": "",
+          |      "id": "10001",
+          |      "self": "http://your-domain.atlassian.net/rest/api/2/issue/10001",
+          |      "key": "HSP-1"
+          |    }
+          |  ],
+          |  "warningMessages": [
+          |    "The value 'splat' does not exist for the field 'Foo'."
+          |  ]
+          |}
+        """.stripMargin
+      val expect = SearchResultsBean(
+        expand = "names,schema",
+        startAt = 0,
+        maxResults = 50,
+        total = 1,
+        issues = List(
+          Issue(
+            expand = "",
+            id = "10001",
+            self = "http://your-domain.atlassian.net/rest/api/2/issue/10001",
+            key = "HSP-1",
+            renderedFields = None,
+            properties = None,
+            names = None,
+            schema = None,
+            transitions = None,
+            operations = None,
+            editmeta = None,
+            changelog = None,
+            versionedRepresentations = None,
+            fields = None,
+            editMeta = None
+          )),
+        warningMessages =
+          List("The value 'splat' does not exist for the field 'Foo'."),
+        names = None,
+        schema = None
+      )
       val actual = decode[SearchResultsBean](responseJson)
       assert(actual.right.value == expect)
     }
