@@ -2,8 +2,8 @@ package jira.rest
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.{HttpMethods, HttpRequest, MediaTypes}
 import akka.http.scaladsl.model.headers.{Accept, Authorization, BasicHttpCredentials}
+import akka.http.scaladsl.model.{HttpMethods, HttpRequest, MediaTypes}
 import akka.stream.ActorMaterializer
 
 class Search() {
