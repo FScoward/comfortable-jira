@@ -17,8 +17,8 @@ class SearchSpec extends AsyncFunSpec {
 
   describe("search") {
     ignore("return status code 200 OK") {
-      val search = new Search()
-      search.searchForIssuesUsingJqlByGet(domain, user, apiToken).map { response =>
+      val search = new Search(domain, user, apiToken)
+      search.searchForIssuesUsingJqlByGet().map { response =>
         assert(response.status == StatusCodes.OK)
       }
     }

@@ -3,11 +3,13 @@ package jira.rest
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.headers.{Accept, Authorization, BasicHttpCredentials}
-import akka.http.scaladsl.model.{HttpMethods, HttpRequest, MediaTypes}
+import akka.http.scaladsl.model.{HttpMethods, HttpRequest, HttpResponse, MediaTypes}
 import akka.stream.ActorMaterializer
 
-class Search() {
-  def searchForIssuesUsingJqlByGet(domain: String, user: String, apiToken: String)(implicit system: ActorSystem, materializer: ActorMaterializer) = {
+import scala.concurrent.Future
+
+class Search(domain: String, user: String, apiToken: String) {
+  def searchForIssuesUsingJqlByGet()(implicit system: ActorSystem, materializer: ActorMaterializer): Future[HttpResponse] = {
     val httpRequest = HttpRequest(
       method = HttpMethods.GET,
       uri = s"https://${domain}.atlassian.net/rest/api/2/search")

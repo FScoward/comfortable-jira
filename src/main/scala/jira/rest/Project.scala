@@ -8,11 +8,12 @@ import akka.stream.ActorMaterializer
 
 import scala.concurrent.Future
 
-class Project {
-  def getAllProjects(domain: String, user: String, apiToken: String)(implicit system: ActorSystem, materializer: ActorMaterializer) = {
+class Project(domain: String, user: String, apiToken: String) {
+  val baseUri = s"https://${domain}.atlassian.net/rest/api/2/project"
+  def getAllProjects()(implicit system: ActorSystem, materializer: ActorMaterializer) = {
     val httpRequest = HttpRequest(
       method = HttpMethods.GET,
-      uri = s"https://${domain}.atlassian.net/rest/api/2/project")
+      uri = baseUri)
       .withHeaders(
         headers = List(
           Authorization(BasicHttpCredentials(user, apiToken)),
@@ -21,10 +22,10 @@ class Project {
     Http().singleRequest(httpRequest)
   }
 
-  def getProjectVersions(domain: String, projectId: String, user: String, apiToken: String)(implicit system: ActorSystem, materializer: ActorMaterializer): Future[HttpResponse] = {
+  def getProjectVersions(projectId: String)(implicit system: ActorSystem, materializer: ActorMaterializer): Future[HttpResponse] = {
     val httpRequest = HttpRequest(
       method = HttpMethods.GET,
-      uri = s"https://${domain}.atlassian.net/rest/api/2/project/${projectId}/versions")
+      uri = s"${baseUri}/${projectId}/versions")
       .withHeaders(
         headers = List(
           Authorization(BasicHttpCredentials(user, apiToken)),
