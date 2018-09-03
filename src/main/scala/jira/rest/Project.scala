@@ -1,49 +1,27 @@
 package jira.rest
 
-import akka.actor.ActorSystem
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.headers.{
-  Accept,
-  Authorization,
-  BasicHttpCredentials
-}
-import akka.http.scaladsl.model.{
-  HttpMethods,
-  HttpRequest,
-  HttpResponse,
-  MediaTypes
-}
-import akka.stream.ActorMaterializer
-
-import scala.concurrent.Future
+import com.softwaremill.sttp._
 
 class Project(domain: String, user: String, apiToken: String) {
   val baseUri = s"https://${domain}.atlassian.net/rest/api/2/project"
-  def getAllProjects()(implicit system: ActorSystem,
-                       materializer: ActorMaterializer) = {
-    val httpRequest = HttpRequest(method = HttpMethods.GET, uri = baseUri)
-      .withHeaders(
-        headers = List(
-          Authorization(BasicHttpCredentials(user, apiToken)),
-          Accept(MediaTypes.`application/json`)
-        )
-      )
-    Http().singleRequest(httpRequest)
+  def getAllProjects()(implicit backend: SttpBackend[Id, Nothing]) = {
+    val uri: Uri = uri"https://${domain}.atlassian.net/rest/api/2/project"
+    sttp
+      .get(uri)
+      .auth
+      .basic(user, apiToken)
+      .headers((HeaderNames.Accept, MediaTypes.Json))
+      .send()
   }
 
   def getProjectVersions(projectId: String)(
-      implicit system: ActorSystem,
-      materializer: ActorMaterializer
-  ): Future[HttpResponse] = {
-    val httpRequest = HttpRequest(
-      method = HttpMethods.GET,
-      uri = s"${baseUri}/${projectId}/versions"
-    ).withHeaders(
-      headers = List(
-        Authorization(BasicHttpCredentials(user, apiToken)),
-        Accept(MediaTypes.`application/json`)
-      )
-    )
-    Http().singleRequest(httpRequest)
+      implicit backend: SttpBackend[Id, Nothing]) = {
+    val uri = uri"${baseUri}/${projectId}/versions"
+    sttp
+      .get(uri)
+      .auth
+      .basic(user, apiToken)
+      .headers((HeaderNames.Accept, MediaTypes.Json))
+      .send()
   }
 }

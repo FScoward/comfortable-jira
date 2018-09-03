@@ -1,8 +1,8 @@
 package jira.rest
 
 import akka.actor.ActorSystem
-import akka.http.scaladsl.model._
 import akka.stream.ActorMaterializer
+import com.softwaremill.sttp.HttpURLConnectionBackend
 import com.typesafe.config.ConfigFactory
 import org.scalatest.AsyncFunSpec
 
@@ -14,23 +14,18 @@ class ProjectSpec extends AsyncFunSpec {
   val apiToken = config.getString("jira.rest.apiToken")
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
+  implicit val backend = HttpURLConnectionBackend()
 
   describe("get project") {
     ignore("return status code 200 OK") {
       val project = new Project(domain, user, apiToken)
-      project
-        .getAllProjects()
-        .map(response => {
-          assert(response.status == StatusCodes.OK)
-        })
+      assert(project.getAllProjects().is200)
     }
   }
   describe("get project versions") {
     ignore("return status code 200 OK") {
       val project = new Project(domain, user, apiToken)
-      project
-        .getProjectVersions(projectId)
-        .map(response => assert(response.status == StatusCodes.OK))
+      assert(project.getProjectVersions(projectId).is200)
     }
   }
 }
