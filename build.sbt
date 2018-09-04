@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.5" % "test",
   "com.typesafe.akka" %% "akka-http" % "10.0.0",
   "com.typesafe" % "config" % "1.3.2",
-  "com.softwaremill.sttp" %% "core" % "1.3.1"
+  "com.softwaremill.sttp" %% "core" % "1.3.1",
+  "com.github.scopt" %% "scopt" % "3.7.0"
 )
 
 libraryDependencies ++= Seq(
